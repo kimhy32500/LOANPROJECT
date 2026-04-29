@@ -6,6 +6,7 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 
 def assert_loan_result(driver, job_name, expected_success=True):
@@ -14,7 +15,7 @@ def assert_loan_result(driver, job_name, expected_success=True):
 
         wait.until(EC.presence_of_element_located((By.XPATH, "//*[contains(text(), '홈으로 이동')]")))
         
-        time.sleep(1)
+        time.sleep(1)  # 페이지 안정화 대기 (승인 화면 식별 요소 없음)
 
         retry_btns = driver.find_elements(By.XPATH, "//*[contains(text(), '정보 수정하여 재심사')]")
         is_retry_visible = any(btn.is_displayed() for btn in retry_btns)
@@ -31,6 +32,9 @@ def assert_loan_result(driver, job_name, expected_success=True):
             print(f"❌ [FAIL] {job_name}: {actual_str} 화면이 노출됨")
             return False
 
+    except TimeoutException:
+        print(f"❌ [FAIL] {job_name}: 결과 화면이 15초 내에 나타나지 않음")
+        return False
     except Exception as e:
         print(f"❌ [SYSTEM ERROR] {job_name}: 검증 중 오류 발생 ({e})")
         return False

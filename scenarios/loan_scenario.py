@@ -28,7 +28,10 @@ def loan_scenario_return(driver):
         )
         btn.click()
 
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(
+            lambda d: any("WEBVIEW" in c or "CHROMIUM" in c for c in d.contexts)
+        )
+
         webview = [c for c in driver.contexts if "WEBVIEW" in c or "CHROMIUM" in c][-1]
         driver.switch_to.context(webview)
 
@@ -36,5 +39,6 @@ def loan_scenario_return(driver):
             EC.presence_of_element_located((By.XPATH, "//*[contains(text(), '로그아웃')]"))
         )
         return True
-    except:
-        return True
+    except Exception as e:
+        print(f"❌ [ERROR] 홈 복귀 실패: {str(e).splitlines()[0]}")
+        return False

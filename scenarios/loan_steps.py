@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
 
 
 def loan_scenario_select_job(driver, job_name):
@@ -38,16 +39,26 @@ def loan_scenario_input_join_date(driver):
     print("[진행] 입사월 설정 (Native)")
     try:
         driver.switch_to.context('NATIVE_APP')
-        time.sleep(1)
-        locators = ["//android.widget.Spinner", "//*[contains(@resource-id, 'spinner')]", "//android.widget.EditText"]
+        
+        locators = [
+            "//android.widget.Spinner",
+            "//*[contains(@resource-id, 'spinner')]",
+            "//android.widget.EditText"
+        ]
+        
         spinner = None
         for xpath in locators:
             try:
-                spinner = driver.find_element(By.XPATH, xpath)
-                if spinner: break
-            except: continue
+                spinner = WebDriverWait(driver, 3).until(  # sleep(1) 대신 각 locator마다 최대 3초 대기
+                    EC.presence_of_element_located((By.XPATH, xpath))
+                )
+                if spinner:
+                    break
+            except TimeoutException:
+                continue
 
-        if not spinner: raise Exception("스피너를 찾을 수 없음")
+        if not spinner:
+            raise Exception("스피너를 찾을 수 없음")
         spinner.click()
         
         confirm = "//*[@text='설정' or @text='확인' or @resource-id='android:id/button1']"
@@ -57,7 +68,11 @@ def loan_scenario_input_join_date(driver):
         print(f"[실패] 입사월 설정 에러: {e}")
         return False
     finally:
-        driver.switch_to.context([c for c in driver.contexts if 'WEBVIEW' in c or 'CHROMIUM' in c][-1])
+        webviews = [c for c in driver.contexts if 'WEBVIEW' in c or 'CHROMIUM' in c]
+        if webviews:
+            driver.switch_to.context(webviews[-1])
+        else:
+            print("⚠️ [WARN] 웹뷰 컨텍스트를 찾을 수 없음")
 
 def loan_scenario_input_business_date(driver):
     print("[진행] 개업일 설정 (Native)")
@@ -101,7 +116,10 @@ def loan_scenario_submit(driver):
             EC.element_to_be_clickable((By.XPATH, "//android.widget.Button[@text='심사 신청하기']"))
         ).click()
 
-        time.sleep(3)
+        # 웹뷰가 생성될 때까지 폴링으로 대기 (sleep 3초 고정 → 최대 10초 내 자동 감지)
+        WebDriverWait(driver, 10).until(
+            lambda d: any("WEBVIEW" in c or "CHROMIUM" in c for c in d.contexts)
+        )
 
         webview = [c for c in driver.contexts if "WEBVIEW" in c or "CHROMIUM" in c][-1]
         driver.switch_to.context(webview)

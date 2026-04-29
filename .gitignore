@@ -2,5 +2,5 @@ __pycache__/
 screenshots/
 .vscode/
 *.pyc
-# pytest report
-report.html
+# pytest report (루트 경로만 무시)
+/report.html

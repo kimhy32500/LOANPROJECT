@@ -5,7 +5,6 @@ import traceback
 
 def click_element(driver, locator, element_name):
     try:
-        # 현재 컨텍스트를 로그에 포함하여 위치 파악 용이하게 개선
         current_ctx = driver.current_context
         by_type = By.XPATH if locator.startswith("//") else By.CSS_SELECTOR
         

@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException
 def is_text_present(driver, text, name):
     try:
         current_ctx = driver.current_context
-        wait = WebDriverWait(driver, 7) # 입사월 이슈를 고려해 시간을 조금 늘렸습니다.
+        wait = WebDriverWait(driver, 7)
         
         xpath = f"//*[contains(text(), '{text}')]"
         wait.until(EC.presence_of_element_located((By.XPATH, xpath)))

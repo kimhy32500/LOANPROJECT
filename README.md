@@ -20,6 +20,8 @@ Appium과 Selenium을 활용한 하이브리드 앱 대출 시나리오 자동�
 ###   에러 로깅: 동작 실패 시 스크린샷을 자동 저장하여 디버깅 효율을 높였습니다.
 
 ## 2. 프로젝트 구조
+
+```text
 LOANPROJECT/ (최상위 폴더)
 ├── app/                  # [Target] 테스트 대상 웹사이트 소스
 ├── assertions/           # [Validation] 결과 판정 로직
@@ -36,6 +38,8 @@ LOANPROJECT/ (최상위 폴더)
 ├── validation.py         # [Util] 요소 확인 및 검증 유틸
 ├── README.md             # 프로젝트 설명서
 └── regression_main.py    # [Runner] 전체 시나리오 실행 메인 파일
+```
+
 
 ## 3. 사전 준비 (Prerequisites)
     * **Python 3.12.3+**

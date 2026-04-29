@@ -89,7 +89,7 @@ LOANPROJECT/
 
 ## 5. 테스트 결과 리포트
 
-[![Report](https://img.shields.io/badge/Test%20Report-5%20passed-brightgreen)](https://htmlpreview.github.io/?https://github.com/kimhy32500/LOANPROJECT/blob/main/report/report.html)
+[![Report](https://img.shields.io/badge/Test%20Report-5%20passed-brightgreen)](https://kimhy32500.github.io/LOANPROJECT/report/report.html)
 
 > 위 링크 클릭 시 최신 pytest 실행 결과를 바로 확인할 수 있습니다.
 

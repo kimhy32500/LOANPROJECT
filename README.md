@@ -30,11 +30,27 @@ Appium과 Selenium을 활용한 하이브리드 앱 대출 시나리오 자동�
 
 ---
 
-## 2. 프로젝트 구조
+## 2. 테스트 대상 앱 (루피 뱅크)
+
+테스트 자동화의 대상이 되는 웹앱을 직접 제작했습니다. 로그인부터 대출 심사 결과까지 실제 금융 서비스 흐름을 구현했으며, 직업 유형별로 입력 필드와 심사 로직이 달라지는 복합적인 시나리오를 포함합니다.
+
+- **직업 유형 4종**: 직장인/공무원, 개인사업자, 프리랜서, 무직
+- **연소득 기준 심사**: 3,000만원 이상 승인 / 미만 거절
+- **유효성 검사**: 직장명·사업장명 2글자 이상, 연소득 1글자 이상 입력 시 신청 활성화
+- **팝업 처리**: 로그인 실패, 로그아웃 확인, 신청 완료 팝업
+
+<p align="center">
+  <img src="app/대출조회_플로우차트.png" width="700">
+</p>
+
+---
+
+## 3. 프로젝트 구조
 
 ```text
 LOANPROJECT/
-├── app/                        # [Target] 테스트 대상 웹사이트 소스
+├── app/                        # [Target] 테스트 대상 웹앱 (직접 제작)
+│   └── 대출조회_플로우차트.png   # 앱 비즈니스 로직 플로우차트
 ├── assertions/                 # [Validation] 결과 판정 로직
 │   └── loan_assertion.py
 ├── data/                       # [Data] 테스트 케이스 데이터
@@ -58,7 +74,7 @@ LOANPROJECT/
 
 ---
 
-## 3. 테스트 케이스 구성 (`data/test_data.json`)
+## 4. 테스트 케이스 구성 (`data/test_data.json`)
 
 케이스 추가 시 JSON 파일에 항목만 추가하면 코드 수정 없이 자동으로 테스트에 반영됩니다.
 
@@ -71,7 +87,7 @@ LOANPROJECT/
 
 ---
 
-## 4. 테스트 결과 리포트
+## 5. 테스트 결과 리포트
 
 [![Report](https://img.shields.io/badge/Test%20Report-5%20passed-brightgreen)](https://htmlpreview.github.io/?https://github.com/kimhy32500/LOANPROJECT/blob/main/report/report.html)
 
@@ -79,7 +95,7 @@ LOANPROJECT/
 
 ---
 
-## 5. 사전 준비 (Prerequisites)
+## 6. 사전 준비 (Prerequisites)
 
 
 - **Python 3.12.3+**
@@ -89,7 +105,7 @@ LOANPROJECT/
 
 ---
 
-## 6. 설치 및 실행
+## 7. 설치 및 실행
 
 ```bash
 # 저장소 클론

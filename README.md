@@ -21,30 +21,21 @@ Appium과 Selenium을 활용한 하이브리드 앱 대출 시나리오 자동�
 
 ## 2. 프로젝트 구조
 LOANPROJECT/ (최상위 폴더)
-├── app/                        # [Target] 테스트 대상 웹사이트 소스 (HTML/CSS)
-│   ├── index.html, input.html, login.html, result.html
-│   └── style.css
-│
-├── assertions/                 # [Validation] 결과 판정 로직
-│   └── loan_assertion.py       # 대출 결과(성공/실패)를 검증하는 함수
-│
-├── scenarios/                  # [Scenario] 주요 테스트 시나리오 조각들
-│   ├── loan_scenario.py        # 대출 진입 및 복귀 흐름
-│   ├── loan_steps.py           # 대출 정보 입력의 세부 단계들
-│   └── login_scenario.py       # 로그인 및 로그아웃 흐름
-│
-├── images/                     # [Doc] README용 GIF 파일 보관함
-│   └── Loan_Test_Automation.gif
-│
-├── screenshots/                # [Log] 에러 발생 시 스크린샷 저장 폴더
-││
-├── click_actions.py            # [Util] 공통 클릭 액션 (메인 루트)
-├── input_actions.py            # [Util] 공통 입력 액션 (메인 루트)
-├── open_browser.py             # [Util] 드라이버 설정 및 실행 (메인 루트)
-├── validation.py               # [Util] 요소 확인 및 검증 유틸 (메인 루트)
-│
-├── README.md                   # 프로젝트 설명서 (images/의 GIF 포함)
-└── regression_main.py          # [Runner] 모든 시나리오를 조립해서 실행하는 파일
+├── app/                  # [Target] 테스트 대상 웹사이트 소스
+├── assertions/           # [Validation] 결과 판정 로직
+│   └── loan_assertion.py
+├── scenarios/            # [Scenario] 주요 테스트 시나리오 조각들
+│   ├── loan_scenario.py
+│   ├── loan_steps.py
+│   └── login_scenario.py
+├── images/               # [Doc] README용 GIF 파일 보관함
+├── screenshots/          # [Log] 에러 발생 시 스크린샷 저장 폴더
+├── click_actions.py      # [Util] 공통 클릭 액션
+├── input_actions.py      # [Util] 공통 입력 액션
+├── open_browser.py       # [Util] 드라이버 설정 및 실행
+├── validation.py         # [Util] 요소 확인 및 검증 유틸
+├── README.md             # 프로젝트 설명서
+└── regression_main.py    # [Runner] 전체 시나리오 실행 메인 파일
 
 ## 3. 사전 준비 (Prerequisites)
     * **Python 3.12.3+**
